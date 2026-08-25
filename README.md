@@ -98,3 +98,37 @@ can be run with Docker Compose.
           |
           v
  Payment / Refund Processing
+
+
+
+## Application Screenshots
+
+### Dashboard
+
+![PayFlow Dashboard](Docs/addmoney.png)
+
+### Sign Up
+
+![PayFlow Sign Up](Docs/signup.png)
+
+### Add Money
+
+![PayFlow Add Money](Docs/addmoney.png)
+
+### Withdraw
+
+![PayFlow Withdraw](Docs/withdraw.png)
+
+### Transfer
+
+![PayFlow Transfer](Docs/transfer.png)
+
+### Send Money
+
+![PayFlow Send Money](Docs/sendmoney.png)
+
+### API Documentation
+
+![PayFlow API Documentation](Docs/payflow%20API%201.png)
+
+![PayFlow API Documentation](Docs/payflow%20API%202.png)
