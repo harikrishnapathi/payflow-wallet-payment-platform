@@ -4,8 +4,9 @@ services:
     name: payflow-backend
     runtime: docker
     dockerfilePath: ./backend/Dockerfile
+    dockerContext: .
     plan: free
-    region: singapore
+    region: oregon
     healthCheckPath: /health
 
     envVars:
@@ -16,23 +17,15 @@ services:
         value: production
 
       - key: DATABASE_URL
-        fromDatabase:
-          name: payflow-postgres
-          property: connectionString
+        sync: false
 
       - key: REDIS_URL
-        fromService:
-          type: keyvalue
-          name: payflow-redis
-          property: connectionString
+        sync: false
 
       - key: JWT_SECRET
         generateValue: true
 
       - key: JWT_REFRESH_SECRET
-        generateValue: true
-
-      - key: WEBHOOK_SECRET
         generateValue: true
 
       - key: ACCESS_TOKEN_EXPIRE_MINUTES
@@ -43,6 +36,9 @@ services:
 
       - key: PAYMENT_PROVIDER
         value: mock
+
+      - key: WEBHOOK_SECRET
+        generateValue: true
 
       - key: CORS_ORIGINS
         sync: false
@@ -66,19 +62,3 @@ services:
       - type: rewrite
         source: /*
         destination: /index.html
-
-
-  - type: keyvalue
-    name: payflow-redis
-    plan: free
-    region: singapore
-    ipAllowList: []
-    maxmemoryPolicy: noeviction
-
-
-databases:
-
-  - name: payflow-postgres
-    plan: free
-    region: singapore
-    postgresMajorVersion: "16"
