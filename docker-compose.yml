@@ -1,0 +1,49 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: payflow_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: payflow_db
+      POSTGRES_USER: payflow_user
+      POSTGRES_PASSWORD: payflow_password
+    ports: ["5434:5432"]
+    volumes: [payflow_postgres_data:/var/lib/postgresql/data]
+    healthcheck: {test: ["CMD-SHELL","pg_isready -U payflow_user -d payflow_db"],interval: 5s,timeout: 5s,retries: 10}
+  redis:
+    image: redis:7-alpine
+    container_name: payflow_redis
+    restart: unless-stopped
+    ports: ["6380:6379"]
+    volumes: [payflow_redis_data:/data]
+    healthcheck: {test: ["CMD","redis-cli","ping"],interval: 5s,timeout: 5s,retries: 10}
+  backend:
+    build: ./backend
+    container_name: payflow_backend
+    restart: unless-stopped
+    environment:
+      APP_NAME: PayFlow
+      ENVIRONMENT: docker
+      DATABASE_URL: postgresql+psycopg://payflow_user:payflow_password@postgres:5432/payflow_db
+      REDIS_URL: redis://redis:6379/0
+      JWT_SECRET: O9lNzcCqtOA2AxWWbNxbf-XYq31f4ZtKX3djeUckK5pNlA3kY--EDW2LymVSER8a
+      JWT_REFRESH_SECRET: kZHAFGWJM4xJNVy8hoQ_2AHkki6jQRLkOtu5Tw9I4OZUhZC43D7AFu213Pie_sfG
+      ACCESS_TOKEN_EXPIRE_MINUTES: 30
+      REFRESH_TOKEN_EXPIRE_DAYS: 7
+      CORS_ORIGINS: http://localhost:5173
+      PAYMENT_PROVIDER: mock
+      WEBHOOK_SECRET: ZMWCKCNm9BcXPtObWaQpa0sSwWpsSO4P51zxfdkgXYPDSmrBjWOfgmUwZ_e3ygCe
+    ports: ["8000:8000"]
+    depends_on:
+      postgres: {condition: service_healthy}
+      redis: {condition: service_healthy}
+  frontend:
+    build: ./frontend
+    container_name: payflow_frontend
+    restart: unless-stopped
+    environment: {VITE_API_URL: http://localhost:8000/api/v1}
+    ports: ["5173:5173"]
+    depends_on: [backend]
+volumes:
+  payflow_postgres_data:
+  payflow_redis_data:
