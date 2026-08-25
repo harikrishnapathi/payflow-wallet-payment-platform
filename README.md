@@ -75,27 +75,30 @@ can be run with Docker Compose.
 ---
 
 # Architecture
-          React Frontend
-                          |
-                          v
-                    FastAPI Backend
-                          |
-          +---------------+---------------+
-          |               |               |
-          v               v               v
-      PostgreSQL        Redis          JWT Auth
-          |
-          v
+
+                     PAYFLOW
+                       │
+                 React Frontend
+                       │
+                       ▼
+                 FastAPI Backend
+                       │
+          ┌────────────┼────────────┐
+          ▼            ▼            ▼
+      PostgreSQL      Redis       JWT Auth
+          │
+          ▼
     Double-Entry Ledger
-          |
-          v
+          │
+          ▼
       Outbox Events
-          |
-          v
+          │
+          ▼
     Background Worker
-          |
-          v
+          │
+          ▼
  Payment / Refund Processing
+          
 
 
 
