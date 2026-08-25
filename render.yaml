@@ -70,11 +70,12 @@ services:
         destination: /index.html
 
 
-  - type: keyvalue
+    -type: keyvalue
     name: payflow-redis
     plan: starter
     region: singapore
-
+    ipAllowList: []
+    maxmemoryPolicy: noeviction
 
 databases:
 
