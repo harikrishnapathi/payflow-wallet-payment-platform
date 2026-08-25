@@ -104,10 +104,6 @@ can be run with Docker Compose.
 
 ## Application Screenshots
 
-### Dashboard
-
-![PayFlow Dashboard](Docs/addmoney.png)
-
 ### Sign Up
 
 ![PayFlow Sign Up](Docs/signup.png)
@@ -130,6 +126,6 @@ can be run with Docker Compose.
 
 ### API Documentation
 
-![PayFlow API Documentation](Docs/payflow%20API%201.png)
+![PayFlow API Documentation](Docs/payflow-api-1.png)
 
-![PayFlow API Documentation](Docs/payflow%20API%202.png)
+![PayFlow API Documentation](Docs/payflow-api-2.png)
