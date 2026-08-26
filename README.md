@@ -127,9 +127,9 @@ can be run with Docker Compose.
 
 ![PayFlow Transfer](Docs/transfer.png)
 
-### Send Money
+### transfer history
 
-![PayFlow Send Money](Docs/sendmoney.png)
+![PayFlow transfer history](Docs/transfer-history.png)
 
 ### API Documentation
 
